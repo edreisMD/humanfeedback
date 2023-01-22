@@ -16,7 +16,7 @@ def loadPredictions():
     return df
 
 # create a wraper that receives a class called LLMChain or LLM and adda functionality when the function predict is called
-class LLMChain:
+class LLMChainWraper:
     def __init__(self, llm):
         self.llm = llm
         self.predictions = loadPredictions()
