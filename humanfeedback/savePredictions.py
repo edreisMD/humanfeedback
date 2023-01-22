@@ -2,6 +2,9 @@
 import pandas as pd
 import os
 
+# import llm chain
+from langchain import LLMChain
+
 # functions to load the predictions from the database
 def loadPredictions():
     # load the database if it exists, otherwise create a new one
@@ -16,18 +19,14 @@ def loadPredictions():
     return df
 
 # create a wraper that receives a class called LLMChain or LLM and adda functionality when the function predict is called
-class LLMChainWraper:
-    def __init__(self, llm):
-        self.llm = llm
-        self.predictions = loadPredictions()
-        self.predictions = self.predictions.append({'prediction': 'test'}, ignore_index=True)
-        self.predictions.to_csv('predictions.csv', index=False)
-
-    def predict(self, input):
-        # call the predict function of the LLM
-        prediction = self.llm.predict(input)
-        # save the prediction
-        self.predictions = self.predictions.append({'prediction': prediction}, ignore_index=True)
-        self.predictions.to_csv('predictions.csv', index=False)
-        # return the prediction
-        return prediction
+class CustomLLMChain(LLMChain):
+    # override the predict function
+    def predict(self, text):
+        # get the predictions from the original function
+        predictions = super().predict(text)
+        # save the predictions in the database
+        df = loadPredictions()
+        df = df.append({'prediction': predictions}, ignore_index=True)
+        df.to_csv('predictions.csv', index=False)
+        # return the predictions
+        return predictions
