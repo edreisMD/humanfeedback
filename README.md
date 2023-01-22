@@ -10,6 +10,8 @@ This library is inspired on LangChain work and is aimed to work together with it
 
 # What can this help with?
 - Store all the inputs/outputs that goes through langchain in a persistent DB
+**Example** 
+Colab notebook: 
 - Rank the most relevant examples to be evaluated by a human
 - Export a table of examples to be labeled
 - Finetune GPT3 with the annotated data
