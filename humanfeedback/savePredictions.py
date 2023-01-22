@@ -1,6 +1,7 @@
 # It is a pandas dataframe now but it will be replaced with a SQL database
 import pandas as pd
 import os
+from typing import Optional, List, Mapping, Any
 
 # import llm chain
 from langchain import LLMChain
