@@ -8,7 +8,15 @@ import os
 class LLMChainWrapper(LLMChain):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.df = loadPredictions()
+        # check if the file exists
+        if os.path.isfile('predictions.csv'):
+            # load the database
+            self.df = loadPredictions()
+        else:
+            # create a new database
+            self.df = pd.DataFrame(columns=['prediction'])
+            # save the database
+            self.df.to_csv('predictions.csv', index=False)
 
     def predict(self, *args, **kwargs):
         prediction = super().predict(*args, **kwargs)
