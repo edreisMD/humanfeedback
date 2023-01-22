@@ -2,14 +2,17 @@
 import pandas as pd
 
 from langchain import LLM, LLMChain
+import os
 
 # create a decorator for langchain to save the predictions in the database (for now a pandas dataframe)
 def savePredictionsDecorator(func):
     # load the database if it exists, otherwise create a new one
-    # check if the database exists
-    try:
+    # check if the file exists
+    if os.path.isfile('predictions.csv'):
+        # load the database
         df = pd.read_csv('predictions.csv')
-    except:
+    else:
+        # create a new database
         df = pd.DataFrame(columns=['prediction'])
 
     # define the wrapper
