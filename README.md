@@ -9,9 +9,8 @@ This library aims to help AI apps to easily incorporate Human Feedback and impro
 This library is inspired on LangChain work and is aimed to work together with it.
 
 # What can this help with?
-- Store all the inputs/outputs of a  by simply calling a python library
-- Extract metrics of unlabeled data
-- Rank the most relevant examples to be labeled
-- Export a table of examples to be annotated
+- Store all the inputs/outputs that goes through langchain in a DB
+- Rank the most relevant examples to be evaluated by a human
+- Export a table of examples to be labeled
 - Finetune GPT3 with the annotated data
 
