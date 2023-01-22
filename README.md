@@ -9,12 +9,23 @@ This library aims to help AI apps to easily incorporate Human Feedback and impro
 This library is inspired on LangChain work and is aimed to work together with it.
 
 # What can this help with?
-- 💾 **Store all the inputs/outputs that goes through langchain in a persistent DB**
+💾 **Store all the inputs/outputs that goes through langchain in a persistent DB**
 
 **Example** 
 Colab notebook: https://colab.research.google.com/drive/1Oyc5fCtq07CfwHfi9ghI52Pf-eqzB0LK?usp=sharing
 
-- 🏔️ **Rank the most relevant examples to be evaluated by a human (coming soon)**
-- 📜 **Export a table of examples to be labeled (coming soon)**
-- 🧑‍🎓 **Elements for an interface to provide feedback more easily (coming soon)**
-- 💎 **Finetune GPT3 with the annotated data (coming soon)**
+🏔️ **Rank the most relevant examples to be evaluated by a human (coming soon)**
+
+(coming soon)
+
+📜 **Export a table of examples to be labeled (coming soon)**
+
+(coming soon)
+
+🧑‍🎓 **Elements for an interface to provide feedback more easily (coming soon)**
+
+(coming soon)
+
+💎 **Finetune GPT3 with the annotated data (coming soon)**
+
+(coming soon)

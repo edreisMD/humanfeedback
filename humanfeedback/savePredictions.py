@@ -18,15 +18,28 @@ def loadPredictions():
     # return the database
     return df
 
+def savePrediction(prediction):
+    # load the database
+    df = loadPredictions()
+    # add the prediction to the database
+    df = df.append({'prediction': prediction}, ignore_index=True)
+    # save the database
+    df.to_csv('predictions.csv', index=False)
+
 # create a wraper that receives a class called LLMChain or LLM and adda functionality when the function predict is called
 class CustomLLMChain(LLMChain):
-    # override the predict function
-    def predict(self, text):
-        # get the predictions from the original function
-        predictions = super().predict(text)
-        # save the predictions in the database
-        df = loadPredictions()
-        df = df.append({'prediction': predictions}, ignore_index=True)
-        df.to_csv('predictions.csv', index=False)
-        # return the predictions
-        return predictions
+    # create a new constructor
+    def __init__(self, *args, **kwargs):
+        # call the original constructor
+        super().__init__(*args, **kwargs)
+        # save the original predict function
+        self.original_predict = self.predict
+
+    # create a new predict function
+    def predict(self, *args, **kwargs):
+        # call the original predict function
+        prediction = self.original_predict(*args, **kwargs)
+        # save the prediction to the database
+        savePrediction(prediction)
+        # return the prediction
+        return prediction
