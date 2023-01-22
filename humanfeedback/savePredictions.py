@@ -22,7 +22,7 @@ def savePredictionsDecorator(func):
         # add the prediction to the database
         df = df.append({'prediction': prediction}, ignore_index=True)
         # save the database
-        df.to_csv('predictions.csv', index=False)
+        df.to_csv('./predictions.csv', index=False)
         # return the prediction
         return prediction
     # return the wrapper
