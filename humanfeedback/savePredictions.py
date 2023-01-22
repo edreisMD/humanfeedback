@@ -15,21 +15,19 @@ def loadPredictions():
     # return the database
     return df
 
-# create a wraper for langchain LLMChain class to save the predictions in the database (for now a pandas dataframe in the working directory)
-class Wraper(LLMChainClass):
-    def __init__(self, *args, **kwargs):
-        # call the init function of the LLMChainClass
-        super(Wraper, self).__init__(*args, **kwargs)
-        # load the predictions
+# create a wraper that receives a class called LLMChain or LLM and adda functionality when the function predict is called
+class LLMChain:
+    def __init__(self, llm):
+        self.llm = llm
         self.predictions = loadPredictions()
-        # get the index of the last prediction
-        self.index = len(self.predictions)
-    def predict(self, *args, **kwargs):
-        # call the predict function of the LLMChainClass
-        prediction = super(Wraper, self).predict(*args, **kwargs)
-        # save the prediction in the database
-        self.predictions.loc[self.index] = prediction
-        # increase the index
-        self.index += 1
+        self.predictions = self.predictions.append({'prediction': 'test'}, ignore_index=True)
+        self.predictions.to_csv('predictions.csv', index=False)
+
+    def predict(self, input):
+        # call the predict function of the LLM
+        prediction = self.llm.predict(input)
+        # save the prediction
+        self.predictions = self.predictions.append({'prediction': prediction}, ignore_index=True)
+        self.predictions.to_csv('predictions.csv', index=False)
         # return the prediction
         return prediction
