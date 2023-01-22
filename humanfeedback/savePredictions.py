@@ -17,12 +17,17 @@ def savePredictionsDecorator(func):
 
     # define the wrapper
     def wrapper(*args, **kwargs):
+
+        # get the current path on a variable currentPath
+        currentPath = os.getcwd()
         # get the prediction
         prediction = func(*args, **kwargs)
         # add the prediction to the database
         df = df.append({'prediction': prediction}, ignore_index=True)
-        # save the database
-        df.to_csv('./predictions.csv', index=False)
+        # save the database on the current path
+        df.to_csv(currentPath + '/predictions.csv', index=False)
+        # print save predictions 
+        print('Saving predictions')
         # return the prediction
         return prediction
     # return the wrapper
