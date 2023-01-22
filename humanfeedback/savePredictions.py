@@ -6,11 +6,14 @@ import os
 
 # create a decorator for langchain to save the predictions in the database (for now a pandas dataframe)
 def savePredictionsDecorator(func):
+
+    # get the current path on a variable currentPath
+    currentPath = os.getcwd()
     # load the database if it exists, otherwise create a new one
-    # check if the file exists
-    if os.path.isfile('predictions.csv'):
+    # check if the file exists on the current path
+    if os.path.isfile(currentPath + '/predictions.csv'):
         # load the database
-        df = pd.read_csv('predictions.csv')
+        df = pd.read_csv(currentPath + '/predictions.csv')
     else:
         # create a new database
         df = pd.DataFrame(columns=['prediction'])
