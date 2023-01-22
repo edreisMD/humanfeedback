@@ -32,7 +32,18 @@ def savePredictionsDecorator(func):
 def savePredictions(model):
     if isinstance(model, LLMChain):
         model.predict = savePredictionsDecorator(model.predict)
-        
+
     return model
     
-
+# functions to load the predictions from the database
+def loadPredictions():
+    # load the database if it exists, otherwise create a new one
+    # check if the file exists
+    if os.path.isfile('predictions.csv'):
+        # load the database
+        df = pd.read_csv('predictions.csv')
+    else:
+        # create a new database
+        df = pd.DataFrame(columns=['prediction'])
+    # return the database
+    return df
