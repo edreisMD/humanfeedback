@@ -1,7 +1,7 @@
 # It is a pandas dataframe now but it will be replaced with a SQL database
 import pandas as pd
 
-from langchain import LLM, LLMChain
+from langchain import LLMChain
 import os
 
 # create a decorator for langchain to save the predictions in the database (for now a pandas dataframe)
@@ -30,10 +30,9 @@ def savePredictionsDecorator(func):
 
 # return LLM or LLMChain with the decorator
 def savePredictions(model):
-    if isinstance(model, LLM):
+    if isinstance(model, LLMChain):
         model.predict = savePredictionsDecorator(model.predict)
-    elif isinstance(model, LLMChain):
-        model.predict = savePredictionsDecorator(model.predict)
+        
     return model
     
 
