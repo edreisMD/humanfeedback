@@ -4,45 +4,18 @@ import pandas as pd
 from langchain import LLMChain
 import os
 
-# create a decorator for langchain to save the predictions in the database (for now a pandas dataframe)
-def savePredictionsDecorator(func):
+# create a wraper for langchain LLMChain class to save the predictions in the database (for now a pandas dataframe in the working directory)
+class LLMChainWrapper(LLMChain):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.df = loadPredictions()
 
-    # get the current path on a variable currentPath
-    currentPath = os.getcwd()
-    # load the database if it exists, otherwise create a new one
-    # check if the file exists on the current path
-    if os.path.isfile(currentPath + '/predictions.csv'):
-        # load the database
-        df = pd.read_csv(currentPath + '/predictions.csv')
-    else:
-        # create a new database
-        df = pd.DataFrame(columns=['prediction'])
+    def predict(self, *args, **kwargs):
+        prediction = super().predict(*args, **kwargs)
+        self.df = self.df.append({'prediction': prediction}, ignore_index=True)
+        self.df.to_csv('predictions.csv', index=False)
+        return prediction 
 
-    # define the wrapper
-    def wrapper(*args, **kwargs):
-
-        # get the current path on a variable currentPath
-        currentPath = os.getcwd()
-        # get the prediction
-        prediction = func(*args, **kwargs)
-        # add the prediction to the database
-        df = df.append({'prediction': prediction}, ignore_index=True)
-        # save the database on the current path
-        df.to_csv(currentPath + '/predictions.csv', index=False)
-        # print save predictions 
-        print('Saving predictions')
-        # return the prediction
-        return prediction
-    # return the wrapper
-    return wrapper
-
-# return LLM or LLMChain with the decorator
-def savePredictions(model):
-    if isinstance(model, LLMChain):
-        model.predict = savePredictionsDecorator(model.predict)
-
-    return model
-    
 # functions to load the predictions from the database
 def loadPredictions():
     # load the database if it exists, otherwise create a new one
