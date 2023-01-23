@@ -11,7 +11,7 @@ This library is inspired on LangChain work and is aimed to work together with it
 # What can this help with?
 ### 💾 Store all the inputs/outputs that goes through langchain in a persistent DB
 
-*Colab Example:** https://colab.research.google.com/drive/1Oyc5fCtq07CfwHfi9ghI52Pf-eqzB0LK?usp=sharing
+**Usage Example:** [Colab Notebook](https://colab.research.google.com/drive/1Oyc5fCtq07CfwHfi9ghI52Pf-eqzB0LK?usp=sharing)
 
 ### 🏔️ Rank the most relevant examples to be evaluated by a human (coming soon)
 
