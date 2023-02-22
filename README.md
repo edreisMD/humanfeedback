@@ -1,5 +1,4 @@
 # 🍬 HumanFeedback
-👨 Helping Humans Guide AIs 🤖 
 
 # What is this?
 There is an emerging set of applications centered around AI API calls (like GPT3). Data from the user-AI interaction can be evaluated, (re)labeled and then used to improve the model (through finetuning or RLHF). But just storing the results in a unstructured manner doesn't make the data very useful. There is a need for a simple and standardized pipeline for these applications to implement these steps.
